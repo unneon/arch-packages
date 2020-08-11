@@ -1,0 +1,18 @@
+# Maintainer: Mateusz Cegiełka <mateusz@cegla.net>
+pkgname=ttf-raleway-googlefonts
+pkgver=20160215
+pkgrel=1
+pkgdesc="An elegant sans-serif font, designed in a single thin weight."
+arch=('any')
+url="https://fonts.google.com/download?family=Raleway"
+license=('OFL')
+provides=('ttf-raleway')
+conflicts=('otf-impallari-raleway-family' 'otf-raleway' 'ttf-impallari-raleway-family' 'ttf-raleway')
+source=("Raleway.zip::${url}")
+md5sums=('SKIP')
+
+package() {
+	install -dm755 "${pkgdir}/usr/share/fonts/Raleway/"
+	install -Dm644 "${srcdir}/static/"*".ttf" "${pkgdir}/usr/share/fonts/Raleway/"
+	install -Dm644 "${srcdir}/OFL.txt" "${pkgdir}/usr/share/licenses/Raleway/LICENSE"
+}
