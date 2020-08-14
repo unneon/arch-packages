@@ -1,0 +1,29 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 33ac502..3d9a43a 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -12,7 +12,7 @@ git2 = { version = "0.13", optional = true, default-features = false }
+ chrono = { version = "0.4.11", optional = true }
+ 
+ [features]
+-default = ["bash-shell", "libgit"]
++default = ["bare-shell", "libgit"]
+ bash-shell = []
+ bare-shell = []
+ zsh-shell = []
+diff --git a/src/bin/powerline.rs b/src/bin/powerline.rs
+index b51def4..aa632e9 100644
+--- a/src/bin/powerline.rs
++++ b/src/bin/powerline.rs
+@@ -11,11 +11,8 @@ fn main() -> powerline::R<()> {
+ 	#[cfg(feature = "time")]
+ 	prompt.add_module(Time::<SimpleTheme>::with_time_format("%H:%M:%S"))?;
+ 
+-	prompt.add_module(User::<SimpleTheme>::new())?;
+-	prompt.add_module(Host::<SimpleTheme>::new())?;
+ 	prompt.add_module(Cwd::<SimpleTheme>::new(45, 4, false))?;
+ 	prompt.add_module(Git::<SimpleTheme>::new())?;
+-	prompt.add_module(ReadOnly::<SimpleTheme>::new())?;
+ 	prompt.add_module(Cmd::<SimpleTheme>::new())?;
+ 	// prompt.add_module(VirtualEnv::<SimpleTheme>::new())?;
+ 	// prompt.add_module(ExitCode::<SimpleTheme>::new())?;

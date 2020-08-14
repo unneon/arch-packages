@@ -1,0 +1,27 @@
+# Maintainer: Mateusz Cegiełka <mateusz@cegla.net>
+pkgname=powerline-rust-pustaczek-git
+pkgver=r70.f273e12
+pkgrel=1
+pkgdesc="powerline-shell written in Rust"
+arch=("x86_64")
+url="https://github.com/cirho/powerline-rust"
+license=("MIT")
+source=("git+${url}" "config.patch")
+sha256sums=("SKIP" "SKIP")
+
+pkgver() {
+	cd "${srcdir}/powerline-rust/"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "${srcdir}/powerline-rust/"
+	patch -p1 < "${srcdir}/config.patch"
+	cargo build --release
+}
+
+package() {
+	cd "${srcdir}/powerline-rust/"
+	install -Dm755 "target/release/powerline" "${pkgdir}/usr/bin/powerline"
+	install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
