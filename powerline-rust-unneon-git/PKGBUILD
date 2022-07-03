@@ -1,13 +1,13 @@
-# Maintainer: Mateusz Cegiełka <mateusz@cegla.net>
-pkgname=powerline-rust-pustaczek-git
-pkgver=r70.f273e12
+# Maintainer: Mateusz Cegiełka <unneon@unneon.solar>
+pkgname=powerline-rust-unneon-git
+pkgver=r79.b564a78
 pkgrel=1
 pkgdesc="powerline-shell written in Rust"
 arch=("x86_64")
-url="https://github.com/cirho/powerline-rust"
+url="https://github.com/unneon/powerline-rust"
 license=("MIT")
-source=("git+${url}" "config.patch")
-sha256sums=("SKIP" "SKIP")
+source=("git+${url}")
+sha256sums=("SKIP")
 
 pkgver() {
 	cd "${srcdir}/powerline-rust/"
@@ -16,7 +16,6 @@ pkgver() {
 
 build() {
 	cd "${srcdir}/powerline-rust/"
-	patch -p1 < "${srcdir}/config.patch"
 	cargo build --release
 }
 
