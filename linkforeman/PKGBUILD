@@ -1,0 +1,21 @@
+# Maintainer: Mateusz Cegiełka <unneon@unneon.solar>
+pkgname="linkforeman"
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="Simple application to keep track of your config symlinks"
+arch=("x86_64")
+url="https://github.com/unneon/linkforeman"
+license=("MPL2")
+source=("${url}/archive/refs/tags/${pkgver}.tar.gz")
+sha256sums=("a3431f87d71637cc14675dec2dc8a5dc8be18c02e8e98424afaf9d073bd43dde")
+
+build() {
+	cd "${srcdir}/linkforeman-${pkgver}/"
+	cargo build --release
+}
+
+package() {
+	cd "${srcdir}/linkforeman-${pkgver}/"
+	install -Dm755 "target/release/linkforeman" "${pkgdir}/usr/bin/linkforeman"
+	install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
