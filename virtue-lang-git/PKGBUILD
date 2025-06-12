@@ -1,0 +1,38 @@
+pkgname=virtue-lang
+pkgver=r123.66531d5
+pkgrel=1
+pkgdesc="Virtue programming language compiler"
+arch=("x86_64")
+url="https://github.com/unneon/${pkgname}"
+license=("MIT")
+depends=(
+    "binutils"
+    "llvm18"
+)
+makedepends=(
+    "cargo-nightly"
+)
+optdepends=(
+    "gcc: C backend"
+    "qbe: QBE backend"
+)
+source=("git+${url}")
+sha256sums=("SKIP")
+
+pkgver() {
+    cd "${srcdir}/${pkgname}"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+    export RUSTUP_TOOLCHAIN=nightly
+    cd "${srcdir}/${pkgname}"
+    cargo build --release
+}
+
+package() {
+    cd "${srcdir}/${pkgname}"
+    install -Dm755 "target/release/virtue" "${pkgdir}/usr/bin/virtue"
+    install -Dm644 "misc/completions/virtue.fish" "${pkgdir}/usr/share/fish/completions/virtue.fish"
+    install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/virtue/LICENSE"
+}
