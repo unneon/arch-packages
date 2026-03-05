@@ -6,6 +6,7 @@ pkgdesc="powerline-shell written in Rust"
 arch=("x86_64")
 url="https://github.com/unneon/powerline-rust"
 license=("MIT")
+depends=(libgit2)
 source=("git+${url}")
 sha256sums=("SKIP")
 
